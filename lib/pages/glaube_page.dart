@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'geistlicher_impuls.dart';
+import 'sakramente.dart';
+import 'Oekumene.dart';
+import 'tod_und_trauer.dart';
+import 'konversion-wiederaufnahme.dart';
 
 class GlaubePage extends StatefulWidget {
   @override
@@ -8,13 +13,36 @@ class GlaubePage extends StatefulWidget {
 class _GlaubePageState extends State<GlaubePage> {
   String _selectedOption = "Geistlicher Impuls"; // Default section
 
+  // Mapping options to pages
+  Widget _getSelectedPage(String option) {
+    switch (option) {
+      case "Geistlicher Impuls":
+        return GeistlicherImpulsPage();
+      case "Sakramente":
+        return SakramentePage();
+      case "Tod & Trauer":
+        return TodUndTrauerPage();
+      case "Ökumene":
+        return OekumenePage();
+      case "Konversion & Wiederaufnahme":
+        return KonversionWiederaufnahmePage();
+      default:
+        return Center(
+          child: Text(
+            option,
+            style: TextStyle(fontSize: 24),
+          ),
+        );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Glaube"),
       ),
-      drawer: Drawer(  // Sidebar menu
+      drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
@@ -33,12 +61,7 @@ class _GlaubePageState extends State<GlaubePage> {
           ],
         ),
       ),
-      body: Center(
-        child: Text(
-          _selectedOption,
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
+      body: _getSelectedPage(_selectedOption),
     );
   }
 
